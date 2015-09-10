@@ -8,14 +8,13 @@ namespace Portfolio.Models
 {
     public class MyDbContext : DbContext
     {
-        
         // Database constructor
         public MyDbContext() : base("Portfolio")
         {
 
         }
 
-        //public DbSet<Project> Projects { get; set;  }
+        public DbSet<Project> Projects { get; set;  }
 
     }
 }

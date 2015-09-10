@@ -1,23 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Portfolio.Models;
 
 namespace Portfolio.Controllers
 {
     public class PortfolioController : Controller
     {
+        private MyDbContext db = new MyDbContext();
+
         // GET: Portfolio
         public ActionResult Index()
         {
-            return View();
+            return View(db.Projects.ToList());
         }
 
         // GET: Portfolio/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Project project = db.Projects.Find(id);
+            if (project == null)
+            {
+                return HttpNotFound();
+            }
+            return View(project);
         }
 
         // GET: Portfolio/Create
@@ -27,63 +42,86 @@ namespace Portfolio.Controllers
         }
 
         // POST: Portfolio/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Name,Type,Description")] Project project)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                db.Projects.Add(project);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(project);
         }
 
         // GET: Portfolio/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Project project = db.Projects.Find(id);
+            if (project == null)
+            {
+                return HttpNotFound();
+            }
+            return View(project);
         }
 
         // POST: Portfolio/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Name,Type,Description")] Project project)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                db.Entry(project).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(project);
         }
 
         // GET: Portfolio/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Project project = db.Projects.Find(id);
+            if (project == null)
+            {
+                return HttpNotFound();
+            }
+            return View(project);
         }
 
         // POST: Portfolio/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            Project project = db.Projects.Find(id);
+            db.Projects.Remove(project);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-                return RedirectToAction("Index");
-            }
-            catch
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                return View();
+                db.Dispose();
             }
+            base.Dispose(disposing);
         }
     }
 }
