@@ -12,12 +12,29 @@ namespace Portfolio.Controllers
 {
     public class PortfolioController : Controller
     {
+
+        // Reference to the database
         private MyDbContext db = new MyDbContext();
 
         // GET: Portfolio
         public ActionResult Index()
         {
-            return View(db.Projects.ToList());
+            // Display the projects if the user is not logged in (project data otherwise)
+            if(User.Identity.IsAuthenticated)
+            {
+                return View(db.Projects.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Projects");
+            }
+            
+        }
+
+        // GET: Portfolio/Projects
+        public ActionResult Projects()
+        {
+            return View();
         }
 
         // GET: Portfolio/Details/5
