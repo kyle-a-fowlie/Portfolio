@@ -187,6 +187,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ProjectPartial.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -245,7 +246,8 @@
     <Content Include="Views\Portfolio\Delete.cshtml" />
     <Content Include="Views\Portfolio\Details.cshtml" />
     <Content Include="Views\Portfolio\Edit.cshtml" />
-    <Content Include="Views\Portfolio\Projects.cshtml" />
+    <Content Include="Views\Portfolio\Admin.cshtml" />
+    <Content Include="Views\Portfolio\_ProjectPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

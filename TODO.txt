@@ -1,0 +1,58 @@
+TODO, in no particular order
+---------------------------------------------------
+Key
+	[ C ] = currently in progress
+	[ X ] = done
+---------------------------------------------------
+
+
+	Visual Changes
+	----------------------------------------------------------
+	
+	- change theme?
+
+	- need to come up with a an actual site name
+	     - change "My Portfolio" to this name in upper-left hand corner
+
+	- home/index page needs complete overhall (what will go here?)
+	     - Introduction about me/ my work/ this site
+
+	- update contact page
+	- update about page
+
+	- [ X ] hide register menu item
+
+	- [ X ] login page still have "use another service to log in" hint
+
+	- [ X ] create a project partial
+	     - [ C ] re-design partial format
+
+
+	
+	Unimplemented Features
+	-----------------------------------------------------------
+
+	- allow Admin users (currently only me) to upload projects/comics/blog posts
+	     - need admin pages for each section
+		- [ X ] projects admin page
+		- comics admin page
+		- blog admin page
+
+	- add media elements to projects model (poster image and supplemental images)
+	     - primary "Poster Image" is optional?
+
+	- [ X ] portfolio/projects needs to show all current projects
+	     - [ X ] add "create new" link from this page only if logged in
+
+
+
+	Notes/ Organization
+	-------------------------------------------------------------
+
+	- /x/  is the primary content panel for any particular page
+	- /x/admin  is the admin panel for any particular page (portfolio, blog, comics)
+
+	- when an admin logs in, redirect to the index page initially
+	     - whenever an /x/ page is requested, still direct to that page but offer a link to the /x/admin page
+	     - the /x/admin page should offer a link that returns to the /x/ page
+	

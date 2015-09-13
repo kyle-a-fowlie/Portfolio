@@ -19,22 +19,32 @@ namespace Portfolio.Controllers
         // GET: Portfolio
         public ActionResult Index()
         {
-            // Display the projects if the user is not logged in (project data otherwise)
-            if(User.Identity.IsAuthenticated)
+            // Display the projects of the portfolio
+            if (User.Identity.IsAuthenticated)
+            {
+                // offer a link to the admin panel
+                // return View("Admin Link");
+
+                return View(db.Projects.ToList());
+            }
+            else
+            {
+                return View(db.Projects.ToList());
+            }
+
+        }
+
+        // GET: Portfolio/Admin
+        public ActionResult Admin()
+        {
+            if (User.Identity.IsAuthenticated)
             {
                 return View(db.Projects.ToList());
             }
             else
             {
-                return RedirectToAction("Projects");
+                return RedirectToAction("");
             }
-            
-        }
-
-        // GET: Portfolio/Projects
-        public ActionResult Projects()
-        {
-            return View();
         }
 
         // GET: Portfolio/Details/5

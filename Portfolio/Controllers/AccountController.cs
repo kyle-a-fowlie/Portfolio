@@ -79,7 +79,7 @@ namespace Portfolio.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("../Portfolio/Projects");
+                    return RedirectToAction("../");  // redirect to root
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Portfolio.Models.Project>
+
+
+@foreach (var item in Model)
+{
+    <hr />
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-7">
+                <a href="#">
+                    <img class="img-project img-responsive" alt="" src="http://placehold.it/700x300" />
+                </a>
+            </div>
+            <div class="col-md-5">
+                <h3>Project</h3>
+                <h4>Subheading</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
+                @*<a class="btn btn-primary" href="#">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>*@
+            </div>
+
+        </div>
+    </div>
+}
