@@ -73,13 +73,34 @@ namespace Portfolio.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Type,Description")] Project project)
+        public ActionResult Create([Bind(Include = "Id,Name,Type,Description")] Project project, HttpPostedFileBase[] files)
         {
             if (ModelState.IsValid)
             {
                 db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+
+            // Handle project image upload
+            try
+            {
+                /*Lopp for multiple files*/
+                foreach (HttpPostedFileBase file in files)
+                {
+                    /*Geting the file name*/
+                    string filename = System.IO.Path.GetFileName(file.FileName);
+                    /*Saving the file in server folder*/
+                    file.SaveAs(Server.MapPath("~/Content/Files/ProjectImages/" + filename));
+                    string filepathtosave = "Content/Files/ProjectImages/" + filename;
+                    /*HERE WILL BE YOUR CODE TO SAVE THE FILE DETAIL IN DATA BASE*/
+                }
+
+                ViewBag.Message = "File Uploaded successfully.";
+            }
+            catch
+            {
+                ViewBag.Message = "Error while uploading the files.";
             }
 
             return View(project);
