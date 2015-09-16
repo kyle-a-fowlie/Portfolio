@@ -79,16 +79,17 @@ namespace Portfolio.Controllers
             {
                 db.Projects.Add(project);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
             }
 
             // Handle project image upload
             try
             {
+
                 /*Lopp for multiple files*/
                 foreach (HttpPostedFileBase file in files)
                 {
-                    /*Geting the file name*/
+                    /*Get the file name*/
                     string filename = System.IO.Path.GetFileName(file.FileName);
                     /*Saving the file in server folder*/
                     file.SaveAs(Server.MapPath("~/Content/Files/ProjectImages/" + filename));
