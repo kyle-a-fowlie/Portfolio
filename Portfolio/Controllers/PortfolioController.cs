@@ -75,36 +75,38 @@ namespace Portfolio.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Type,Description")] Project project, HttpPostedFileBase[] files)
         {
-            if (ModelState.IsValid)
-            {
-                db.Projects.Add(project);
-                db.SaveChanges();
-                //return RedirectToAction("Index");
-            }
 
-            // Handle project image upload
+            // Handle project info
             try
             {
 
-                /*Lopp for multiple files*/
+                // Loop for multiple files
                 foreach (HttpPostedFileBase file in files)
                 {
-                    /*Get the file name*/
+                    // Get the file name
                     string filename = System.IO.Path.GetFileName(file.FileName);
-                    /*Saving the file in server folder*/
+                    // Save the file in a server folder
                     file.SaveAs(Server.MapPath("~/Content/Files/ProjectImages/" + filename));
-                    string filepathtosave = "Content/Files/ProjectImages/" + filename;
-                    /*HERE WILL BE YOUR CODE TO SAVE THE FILE DETAIL IN DATA BASE*/
+                    string filepathToSave = "Content/Files/ProjectImages/" + filename;
+
+                    // Add project info into the 'Projects' database
+                    if (ModelState.IsValid)
+                    {
+                        db.Projects.Add(project);
+                        db.SaveChanges();
+                    }
                 }
 
-                ViewBag.Message = "File Uploaded successfully.";
+                ViewBag.Message = "Project craeted successfully.";
             }
             catch
             {
-                ViewBag.Message = "Error while uploading the files.";
+                ViewBag.Message = "Error while creating the project.";
+                return View(project);
             }
 
-            return View(project);
+            // Return to the project list
+            return View("Index", db.Projects.ToList());
         }
 
         // GET: Portfolio/Edit/5

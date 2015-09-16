@@ -40,6 +40,9 @@ Key
 
 	- add media elements to projects model (poster image and supplemental images)
 	     - primary "Poster Image" is optional?
+		- [ X ] allow users to upload files
+		- [ C ] start storing files in the database
+		- [ C ] add custom validation to file objects
 
 	- [ X ] portfolio/projects needs to show all current projects
 	     - [ X ] add "create new" link from this page only if logged in
